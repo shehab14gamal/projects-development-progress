@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        Inherited Form view to add new fields added to project-->
+        <record id="project_project_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.view.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group[2]" position="after">
+
+                    <group>
+                        <field name="odoo_version"/>
+                        <field name="hosting"/>
+
+                        <field name="github_repo_name"/>
+                    </group>
+                    <group>
+                        <field name="odoo_type"/>
+                        <field name="hosting_description"/>
+
+                        <field name="github_repo_url"/>
+                    </group>
+
+                </xpath>
+                <page name="description" position="after">
+                    <page name="Collaborators" string="Collaborators">
+                        <field name="collaborators_ids">
+                            <tree editable="bottom" create="1" edit="1" import="1" decoration-success="status == 'active'"
+                                  decoration-danger="status == 'inactive'">
+                                <field name="employee_id"/>
+                                <field name="status" attrs="{'style': 'background-color: lightgreen;'}"
+                                       widget="badge" decoration-success="status == 'active'"
+                                       decoration-danger="status == 'inactive'" readonly="1"/>
+                                <button name="button_activate" string="Activate" type="object" class="btn-primary"
+                                        attrs="{'invisible':[('status','!=','inactive')]}"/>
+                                <button name="button_deactivate" string="Deactivate" type="object" class="btn-primary"
+                                        attrs="{'invisible':[('status','!=','active')]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>
